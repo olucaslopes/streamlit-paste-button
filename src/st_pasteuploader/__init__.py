@@ -38,7 +38,7 @@ def main():
     st.write(value)
 
     file = st.file_uploader('This is a file uploader 1', type=['png', 'jpg'], key='get-image-ctrl-v1')
-    file = st.file_uploader('This is a file uploader 2', type=['png', 'jpg'], key='get-image-ctrl-v2')
+    button1 = st.button('Test Button', type="secondary")
 
 
 if __name__ == "__main__":
