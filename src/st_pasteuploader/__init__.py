@@ -32,11 +32,20 @@ def st_pasteuploader(
 
 
 def main():
+    import base64
     st.write("## Example")
-    value = st_pasteuploader("This is a label!")
+    base64_image = st_pasteuploader("This is a label!")
 
-    print(value)
-    st.write(value)
+    # print(value)
+    print('type:', type(base64_image))
+    # Extracting the image bytes from the Base64 string
+    if isinstance(base64_image, str) and base64_image.startswith('data:image'):
+        encoded_image = base64_image.split('base64,')[1]
+        image_bytes = base64.b64decode(encoded_image)
+        st.image(image_bytes)
+    else:
+        print('Não é valido: ', base64_image)
+    # st.image(value)
 
     file = st.file_uploader('This is a file uploader 1', type=['png', 'jpg'], key='get-image-ctrl-v1')
     button1 = st.button('Test Button', type="secondary")

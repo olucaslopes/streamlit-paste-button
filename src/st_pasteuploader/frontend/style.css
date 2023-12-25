@@ -1,0 +1,13 @@
+#paste_button {
+  /* Your styles here */
+  background-color: #3498db;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#paste_button:hover {
+  background-color: #2980b9;
+}
