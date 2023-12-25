@@ -7,6 +7,13 @@ function sendValue(value) {
   Streamlit.setComponentValue(value)
 }
 
+async function parseClipboardData(imagecontainer) {
+            const item = await navigator.clipboard.read().catch((err) => {
+                console.error(err);
+            })
+            sendValue(item[0])
+        }
+
 /**
  * The component's render function. This will be called immediately after
  * the component is initially loaded, and then again every time the
@@ -21,18 +28,14 @@ function onRender(event) {
     // Grab the label and default value that the user specified
     const {label, value} = event.detail.args;
 
-    // Set the label text to be what the user specified
-    const label_el = document.getElementById("label")
-    label_el.innerText = label
 
-    // Set the default value to be what the user specified
-    const input = document.getElementById("input_box");
-    if (value) {
-      input.value = value
-    }
+    // Capture paste button
+    const paste_button = document.getElementById("paste_button");
 
     // On the keyup event, send the new value to Python
-    input.onkeyup = event => sendValue(event.target.value)
+    paste_button.onclick = event => {
+      parseClipboardData(paste_button)
+    };
 
     // You'll most likely want to pass some data back to Python like this
     // sendValue({output1: "foo", output2: "bar"})
@@ -46,3 +49,37 @@ Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, onRender)
 Streamlit.setComponentReady()
 // Render with the correct height, if this is a fixed-height component
 Streamlit.setFrameHeight(85)
+
+//    // Grab the label and default value that the user specified
+//    const {label, value} = event.detail.args;
+//
+//    // Find the file uploader container
+//    const element = document.querySelector("[aria-label='${label}']")
+//
+//    document.onpaste = (evt) => {
+//      const dT = evt.clipboardData || window.clipboardData;
+//      const file = dT.files[ 0 ];
+//      sendValue(file)
+//    };
+//
+////   element.onpaste = async (evt) => {
+////    const auth = await navigator.permissions.query( { name: "clipboard-read" } );
+////    if( auth.state !== 'denied' ) {
+////    const item_list = await navigator.clipboard.read();
+////    let image_type; // we will feed this later
+////    const item = item_list.find( item => // choose the one item holding our image
+////      item.types.some( type => { // does this item have our type
+////        if( type.startsWith( 'image/' ) ) {
+////          image_type = type; // store which kind of image type it is
+////          return true;
+////        }
+////      } )
+//    );
+////    const file = item && await item.getType( image_type );
+////    console.log( file );
+////  }
+////};
+//
+//
+//    // On the keyup event, send the new value to Python
+//    input.onkeyup = event => sendValue(event.target.value)

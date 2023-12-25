@@ -35,6 +35,7 @@ def main():
     st.write("## Example")
     value = st_pasteuploader("This is a label!")
 
+    print(value)
     st.write(value)
 
     file = st.file_uploader('This is a file uploader 1', type=['png', 'jpg'], key='get-image-ctrl-v1')
