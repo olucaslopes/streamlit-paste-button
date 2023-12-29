@@ -25,11 +25,15 @@ async function parseClipboardData() {
 }
 
 function onRender(event) {
-  if (!window.rendered) {
-    const pasteButton = document.getElementById('paste_button');
-    pasteButton.onclick = event => {
-      parseClipboardData();
-    };
+    // Change body background color
+    document.body.style.backgroundColor = event.detail.theme.backgroundColor;
+    if (!window.rendered) {
+        const pasteButton = document.getElementById('paste_button');
+        pasteButton.onclick = event => {
+          parseClipboardData();
+        };
+//    console.log(event.detail.theme);
+    // Prevent multiple render events
     window.rendered = true;
   }
 }

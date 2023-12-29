@@ -21,14 +21,14 @@ def st_pasteuploader(
     """
     Add a descriptive docstring
     """
-    component_value = _component_func(
+    base64_image = _component_func(
         label=label,
         value=value,
         key=key,
         default=value
     )
 
-    return component_value
+    return base64_image
 
 
 def main():
@@ -44,7 +44,7 @@ def main():
         image_bytes = base64.b64decode(encoded_image)
         st.image(image_bytes)
     else:
-        print('Não é valido: ', base64_image)
+        print('Não é valido: ', type(base64_image), base64_image)
     # st.image(value)
 
     file = st.file_uploader('This is a file uploader 1', type=['png', 'jpg'], key='get-image-ctrl-v1')
