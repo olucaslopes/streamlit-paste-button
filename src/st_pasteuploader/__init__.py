@@ -34,7 +34,11 @@ def st_pasteuploader(
 def main():
     import base64
     st.write("## Example")
-    base64_image = st_pasteuploader("This is a label!")
+    col1, col2 = st.columns([0.2, 0.80])
+    with col1:
+        button1 = st.button('Test Button 1', type="secondary")
+    with col2:
+        base64_image = st_pasteuploader("📋 Paste an image", key="paste-image")
 
     # print(value)
     print('type:', type(base64_image))
@@ -48,7 +52,7 @@ def main():
     # st.image(value)
 
     file = st.file_uploader('This is a file uploader 1', type=['png', 'jpg'], key='get-image-ctrl-v1')
-    button1 = st.button('Test Button', type="secondary")
+    button2 = st.button('Test Button', type="secondary")
 
 
 if __name__ == "__main__":

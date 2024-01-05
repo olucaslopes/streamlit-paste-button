@@ -27,8 +27,30 @@ async function parseClipboardData() {
 function onRender(event) {
     // Change body background color
     document.body.style.backgroundColor = event.detail.theme.backgroundColor;
+//    console.log(event.detail.theme);
+
+    // Grab the label and default value that the user specified
+    const {label, value} = event.detail.args;
+
+//    // Set the label text to be what the user specified
+//    const label_el = document.getElementById("paste_button")
+//    label_el
+
+//      // Set the button's text and attributes
+//      button.innerHTML = 'Paste Button';
+//      button.id = 'paste-button';
+//
+//      // Append the button to the body
+//      document.body.appendChild(button);
     if (!window.rendered) {
         const pasteButton = document.getElementById('paste_button');
+
+        // Set the label text to be what the user specified
+        pasteButton.innerHTML = label;
+
+        // Set the button's text font
+        pasteButton.style.fontFamily = event.detail.theme.font;
+
         pasteButton.onclick = event => {
           parseClipboardData();
         };

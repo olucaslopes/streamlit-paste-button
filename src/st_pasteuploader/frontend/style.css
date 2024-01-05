@@ -2,13 +2,31 @@
   /* Your styles here */
   background-color: #3498db;
   color: #ffffff;
-  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  padding: 0.25rem 0.75rem;
+  padding-top: 0.25rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  border-radius: 0.5rem;
+  min-height: 38.4px;
+  margin: 0px;
+  line-height: 1.6;
+  width: auto;
 }
 
 #paste_button:hover {
   background-color: #2980b9;
 }
+
+button:not(:disabled) {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+}
+
 
