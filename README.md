@@ -1,11 +1,11 @@
-# streamlit-pasteuploader
+# Streamlit - Paste Button
 
-Streamlit component that allows you to capture pasted data in an input box
+Streamlit component that allows you to paste images from your clipboard into your app with a button click.
 
 ## Installation instructions 
 
 ```sh
-pip install streamlit-pasteuploader
+pip install streamlit-paste-button
 ```
 
 ## Usage instructions
