@@ -1,4 +1,4 @@
-#paste_button {
+button:not(:disabled) {
   /* Your styles here */
   background-color: #3498db;
   color: #ffffff;
@@ -19,7 +19,7 @@
   width: auto;
 }
 
-#paste_button:hover {
+button:not(:disabled) {
   background-color: #2980b9;
 }
 

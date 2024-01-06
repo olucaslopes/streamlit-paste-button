@@ -18,5 +18,5 @@ setuptools.setup(
     include_package_data=True,
     classifiers=[],
     python_requires=">=3.7",
-    install_requires=["streamlit>=1.2", "jinja2"],
+    install_requires=["streamlit>=1.2", "jinja2", "PIL"],
 )

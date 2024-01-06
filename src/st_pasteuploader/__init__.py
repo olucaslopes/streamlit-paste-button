@@ -4,6 +4,11 @@ from typing import Optional
 import streamlit as st
 import streamlit.components.v1 as components
 
+from dataclasses import dataclass
+from PIL import Image
+import io
+import base64
+
 # Tell streamlit that there is a component called st_pasteuploader,
 # and that the code to display that component is in the "frontend" folder
 frontend_dir = (Path(__file__).parent / "frontend").absolute()
@@ -12,48 +17,61 @@ _component_func = components.declare_component(
 )
 
 
+@dataclass
+class PasteResult:
+    """Dataclass to store output of Javascript Component.
+
+    Attributes
+    ----------
+    image_data: PIL.Image
+        The image data.
+    """
+
+    image_data: Image = None
+
+
+def _data_url_to_image(data_url: str) -> Image:
+    """Convert base64 data string an Pillow Image"""
+    _, _data_url = data_url.split(";base64,")
+    return Image.open(io.BytesIO(base64.b64decode(_data_url)))
+
+
 # Create the python function that will be called
 def st_pasteuploader(
         label: str,
-        value: Optional[str] = "",
-        key: Optional[str] = None,
-):
+        text_color: Optional[str] = "#ffffff",
+        background_color: Optional[str] = "#2980b9",
+        key: Optional[str] = 'paste_button',
+) -> PasteResult:
     """
-    Add a descriptive docstring
+    Create a button that can be used to paste an image from the clipboard.
+
+    Parameters
+    ----------
+    label : str
+        The label to display next to the component.
+    text_color : str, optional
+        The color of the text, by default "#ffffff"
+    background_color : str, optional
+        The background color of the button, by default "#2980b9"
+    key : str, optional
+        An optional string to use as the unique key for the widget. Defaults to 'paste_button'.
+
+    Returns
+    -------
+    base64_image : PasteResult
+        The image data.
     """
-    base64_image = _component_func(
+    component_value = _component_func(
         label=label,
-        value=value,
-        key=key,
-        default=value
+        text_color=text_color,
+        background_color=background_color,
+        key=key
     )
 
-    return base64_image
+    if component_value is None:
+        return PasteResult()
 
-
-def main():
-    import base64
-    st.write("## Example")
-    col1, col2 = st.columns([0.2, 0.80])
-    with col1:
-        button1 = st.button('Test Button 1', type="secondary")
-    with col2:
-        base64_image = st_pasteuploader("📋 Paste an image", key="paste-image")
-
-    # print(value)
-    print('type:', type(base64_image))
-    # Extracting the image bytes from the Base64 string
-    if isinstance(base64_image, str) and base64_image.startswith('data:image'):
-        encoded_image = base64_image.split('base64,')[1]
-        image_bytes = base64.b64decode(encoded_image)
-        st.image(image_bytes)
-    else:
-        print('Não é valido: ', type(base64_image), base64_image)
-    # st.image(value)
-
-    file = st.file_uploader('This is a file uploader 1', type=['png', 'jpg'], key='get-image-ctrl-v1')
-    button2 = st.button('Test Button', type="secondary")
-
-
-if __name__ == "__main__":
-    main()
+    return PasteResult(
+        image_data=_data_url_to_image(component_value)
+    )
