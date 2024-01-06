@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import Optional
 
-import streamlit as st
 import streamlit.components.v1 as components
 
 from dataclasses import dataclass
@@ -40,7 +39,8 @@ def _data_url_to_image(data_url: str) -> Image:
 def st_pasteuploader(
         label: str,
         text_color: Optional[str] = "#ffffff",
-        background_color: Optional[str] = "#2980b9",
+        background_color: Optional[str] = "#3498db",
+        hover_background_color: Optional[str] = "#2980b9",
         key: Optional[str] = 'paste_button',
 ) -> PasteResult:
     """
@@ -54,6 +54,8 @@ def st_pasteuploader(
         The color of the text, by default "#ffffff"
     background_color : str, optional
         The background color of the button, by default "#2980b9"
+    hover_background_color : str, optional
+        The background color of the button when hovered, by default "#2980b9"
     key : str, optional
         An optional string to use as the unique key for the widget. Defaults to 'paste_button'.
 
@@ -66,6 +68,7 @@ def st_pasteuploader(
         label=label,
         text_color=text_color,
         background_color=background_color,
+        hover_background_color=hover_background_color,
         key=key
     )
 

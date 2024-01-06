@@ -13,8 +13,8 @@ pip install streamlit-pasteuploader
 ```python
 import streamlit as st
 
-from st_pasteuploader import st_pasteuploader
+from streamlit_paste_button import paste_image_button as pbutton
 
-value = st_pasteuploader()
+value = pbutton()
 
 st.write(value)
