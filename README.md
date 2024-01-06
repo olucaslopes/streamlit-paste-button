@@ -1,5 +1,10 @@
 # Streamlit - Paste Button
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://paste-button.streamlit.app/)
+
+[![PyPI](https://img.shields.io/pypi/v/streamlit-paste-button)](https://pypi.org/project/streamlit-paste-button/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/streamlit-paste-button)](https://pypi.org/project/streamlit-paste-button/)
+
 Streamlit component that allows you to paste images from your clipboard into your app with a button click.
 
 <div align="center">
