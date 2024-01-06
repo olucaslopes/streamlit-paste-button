@@ -88,7 +88,7 @@ def paste_image_button(
                 st.error('**Error**: No image found in clipboard', icon='🚨')
             else:
                 st.error(re.sub('error: (.+)(: .+)', r'**\1**\2', component_value), icon='🚨')
-            return PasteResult()
+        return PasteResult()
     return PasteResult(
         image_data=_data_url_to_image(component_value)
     )
