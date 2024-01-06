@@ -18,9 +18,11 @@ async function parseClipboardData() {
       };
     } else {
       console.error('No image found in clipboard.');
+      sendValue('error: no image found in clipboard');
     }
   } catch (error) {
     console.error('Error reading clipboard:', error);
+    sendValue("error: " + error);
   }
 }
 

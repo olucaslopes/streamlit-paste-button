@@ -1,18 +1,20 @@
 from pathlib import Path
 from typing import Optional
 
+import streamlit as st
 import streamlit.components.v1 as components
 
 from dataclasses import dataclass
 from PIL import Image
 import io
 import base64
+import re
 
-# Tell streamlit that there is a component called st_pasteuploader,
+# Tell streamlit that there is a component called streamlit_paste_button,
 # and that the code to display that component is in the "frontend" folder
 frontend_dir = (Path(__file__).parent / "frontend").absolute()
 _component_func = components.declare_component(
-    "st_pasteuploader", path=str(frontend_dir)
+    "streamlit_paste_button", path=str(frontend_dir)
 )
 
 
@@ -36,12 +38,13 @@ def _data_url_to_image(data_url: str) -> Image:
 
 
 # Create the python function that will be called
-def st_pasteuploader(
+def paste_image_button(
         label: str,
         text_color: Optional[str] = "#ffffff",
         background_color: Optional[str] = "#3498db",
         hover_background_color: Optional[str] = "#2980b9",
         key: Optional[str] = 'paste_button',
+        errors: Optional[str] = 'ignore'
 ) -> PasteResult:
     """
     Create a button that can be used to paste an image from the clipboard.
@@ -58,6 +61,11 @@ def st_pasteuploader(
         The background color of the button when hovered, by default "#2980b9"
     key : str, optional
         An optional string to use as the unique key for the widget. Defaults to 'paste_button'.
+    errors: str {‘raise’, ‘ignore’}, optional
+        If ‘raise’, then invalid input will raise an exception.
+        If ‘ignore’, then invalid input will return the input.
+        Default is ‘ignore’.
+
 
     Returns
     -------
@@ -74,7 +82,13 @@ def st_pasteuploader(
 
     if component_value is None:
         return PasteResult()
-
+    elif component_value.startswith('error'):
+        if errors == 'raise':
+            if component_value.startswith('error: no image'):
+                st.error('**Error**: No image found in clipboard', icon='🚨')
+            else:
+                st.error(re.sub('error: (.+)(: .+)', r'**\1**\2', component_value), icon='🚨')
+            return PasteResult()
     return PasteResult(
         image_data=_data_url_to_image(component_value)
     )
