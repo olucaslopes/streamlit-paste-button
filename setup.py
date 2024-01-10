@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
     name="streamlit-paste-button",
-    version="0.1.0",
+    version="0.1.2",
     author="Lucas Lopes Amorim",
     author_email="lucaslopesamorim@gmail.com",
     description=("Streamlit component that allows you to paste images from your clipboard into your app with a button "
